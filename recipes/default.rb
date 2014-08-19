@@ -30,3 +30,9 @@ when "rhel"
 end
 
 package "ganeti-instance-image"
+
+template "/etc/ganeti/ganeti-instance-image" do
+  source "defaults.sh.erb"
+  variables( :params => node['ganeti-instance-image']['defaults'] )
+  action :create
+end
