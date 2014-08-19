@@ -16,3 +16,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "ganeti"
+
+case node['platform_family']
+when "rhel"
+  yum_repository "instance-image" do
+    repositoryid "instance-image"
+    description "Ganeti Instance Image - $basearch"
+    url "http://ftp.osuosl.org/pub/osl/ganeti-instance-image/yum/$basearch"
+    gpgcheck false
+    action :add
+  end
+end
+
+package "ganeti-instance-image"
