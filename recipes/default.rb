@@ -36,23 +36,3 @@ template '/etc/ganeti/ganeti-instance-image' do
   variables(params: node['ganeti-instance-image']['defaults'])
   action :create
 end
-
-config_dir = node['ganeti-instance-image']['config_dir']
-%w(subnets instances).each do |d|
-  directory "#{config_dir}/networks/#{d}" do
-    action :create
-    recursive true
-  end
-end
-
-unless node['ganeti-instance-image']['instances'].nil?
-  node['ganeti-instance-image']['instances'].each do |instance|
-    template "#{config_dir}/networks/instances/#{instance}" do
-      source 'instances.sh.erb'
-      variables(
-        params: node['ganeti-instance-image']['instance'][instance.to_sym]
-      )
-      action :create
-    end
-  end
-end
