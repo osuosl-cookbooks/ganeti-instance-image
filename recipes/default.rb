@@ -31,8 +31,16 @@ end
 
 package 'ganeti-instance-image'
 
+config_dir = node['ganeti-instance-image']['config_dir']
+
 template '/etc/ganeti/ganeti-instance-image' do
   source 'defaults.sh.erb'
   variables(params: node['ganeti-instance-image']['defaults'])
+  action :create
+end
+
+template "#{config_dir}/variants.list" do
+  source 'variants.list.erb'
+  variables(variants: node['ganeti-instance-image']['variants_list'])
   action :create
 end

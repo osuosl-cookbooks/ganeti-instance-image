@@ -14,3 +14,4 @@ default['ganeti-instance-image']['defaults']['overlay'] = ''
 default['ganeti-instance-image']['defaults']['swap_size'] = ''
 default['ganeti-instance-image']['defaults']['swap'] = 'yes'
 default['ganeti-instance-image']['config_dir'] = '/etc/ganeti/instance-image'
+default['ganeti-instance-image']['variants_list'] = %w(default)

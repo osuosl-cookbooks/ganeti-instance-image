@@ -42,6 +42,10 @@ suites:
       - recipe[ganeti-instance-image]
       - recipe[test-instance-image]
     attributes:
+      ganeti-instance-image:
+        variants_list:
+          - default
+          - centos-6
       ganeti:
         master-node: true
         cluster:
