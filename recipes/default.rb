@@ -16,29 +16,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "ganeti"
+include_recipe 'ganeti'
 
 case node['platform_family']
-when "rhel"
-  yum_repository "instance-image" do
-    repositoryid "instance-image"
-    description "Ganeti Instance Image - $basearch"
-    url "http://ftp.osuosl.org/pub/osl/ganeti-instance-image/yum/$basearch"
+when 'rhel'
+  yum_repository 'instance-image' do
+    repositoryid 'instance-image'
+    description 'Ganeti Instance Image - $basearch'
+    url 'http://ftp.osuosl.org/pub/osl/ganeti-instance-image/yum/$basearch'
     gpgcheck false
     action :add
   end
 end
 
-package "ganeti-instance-image"
+package 'ganeti-instance-image'
 
-template "/etc/ganeti/ganeti-instance-image" do
-  source "defaults.sh.erb"
-  variables( :params => node['ganeti-instance-image']['defaults'] )
+template '/etc/ganeti/ganeti-instance-image' do
+  source 'defaults.sh.erb'
+  variables(params: node['ganeti-instance-image']['defaults'])
   action :create
 end
 
 config_dir = node['ganeti-instance-image']['config_dir']
-%w[subnets instances].each do |d|
+%w(subnets instances).each do |d|
   directory "#{config_dir}/networks/#{d}" do
     action :create
     recursive true
@@ -47,10 +47,10 @@ end
 
 unless node['ganeti-instance-image']['subnets'].nil?
   node['ganeti-instance-image']['subnets'].each do |subnet|
-    template "#{config_dir}/networks/subnets/#{subnet.to_s}" do
-      source "subnets.sh.erb"
+    template "#{config_dir}/networks/subnets/#{subnet}" do
+      source 'subnets.sh.erb'
       variables(
-        :params => node['ganeti-instance-image']['subnet'][subnet.to_sym]
+        params: node['ganeti-instance-image']['subnet'][subnet.to_sym]
       )
       action :create
     end
@@ -59,10 +59,10 @@ end
 
 unless node['ganeti-instance-image']['instances'].nil?
   node['ganeti-instance-image']['instances'].each do |instance|
-    template "#{config_dir}/networks/instances/#{instance.to_s}" do
-      source "instances.sh.erb"
+    template "#{config_dir}/networks/instances/#{instance}" do
+      source 'instances.sh.erb'
       variables(
-        :params => node['ganeti-instance-image']['instance'][instance.to_sym]
+        params: node['ganeti-instance-image']['instance'][instance.to_sym]
       )
       action :create
     end
