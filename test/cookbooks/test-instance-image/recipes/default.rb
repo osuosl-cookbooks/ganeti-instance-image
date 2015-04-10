@@ -9,3 +9,8 @@ ganeti_instance_image_instance 'foo.example.org' do
   address '10.0.0.100'
   subnet 'vlan100'
 end
+
+ganeti_instance_image_variant 'centos-6' do
+  image_name 'centos-6.6'
+  filesystem 'ext4'
+end
