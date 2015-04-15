@@ -33,7 +33,7 @@ package 'ganeti-instance-image'
 
 config_dir = node['ganeti-instance-image']['config_dir']
 
-template '/etc/ganeti/ganeti-instance-image' do
+template '/etc/default/ganeti-instance-image' do
   source 'defaults.sh.erb'
   variables(params: node['ganeti-instance-image']['defaults'])
   action :create
