@@ -2,7 +2,7 @@
 <% %w(arch boot_size cache_dir cdinstall customize_dir filesystem image_cleanup
 image_debug image_dir image_name image_type image_url image_verify kernel_args
 nomount swap swap_size).each do |i| %>
-<% unless instance_variable_get(:"@#{i}").nil? %>
+<% unless instance_variable_get(:"@#{i}").empty? %>
 <%= i.upcase %>="<%= instance_variable_get(:"@#{i}") %>"
 <% end %>
 <% end %>
