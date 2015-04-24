@@ -13,22 +13,26 @@ end
 
 describe file('/etc/default/ganeti-instance-image') do
   its(:content) do
-    should match(/
+    should match(%r{
 ARCH="x86_64"
 BOOT_SIZE=""
+CACHE_DIR="/var/lib/cache/ganeti-instance-image"
 CDINSTALL="no"
 CUSTOMIZE_DIR=""
 EXPORT_DIR=""
 FILESYSTEM="ext4"
+IMAGE_CLEANUP="no"
 IMAGE_DEBUG="0"
 IMAGE_DIR=""
 IMAGE_NAME=""
 IMAGE_TYPE="dump"
+IMAGE_URL=""
+IMAGE_VERIFY="yes"
 KERNEL_ARGS=""
 NOMOUNT=""
 OVERLAY=""
 SWAP_SIZE=""
-SWAP="yes"/)
+SWAP="yes"})
   end
 end
 
