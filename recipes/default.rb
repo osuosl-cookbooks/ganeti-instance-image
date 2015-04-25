@@ -20,6 +20,7 @@ include_recipe 'ganeti'
 
 case node['platform_family']
 when 'rhel'
+  include_recipe 'yum'
   yum_repository 'instance-image' do
     repositoryid 'instance-image'
     description 'Ganeti Instance Image - $basearch'
