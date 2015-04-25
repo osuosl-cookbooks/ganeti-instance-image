@@ -2,9 +2,11 @@ require 'serverspec'
 
 set :backend, :exec
 
-describe yumrepo('instance-image') do
-  it { should exist }
-  it { should be_enabled }
+if os[:family] == 'redhat'
+  describe yumrepo('instance-image') do
+    it { should exist }
+    it { should be_enabled }
+  end
 end
 
 describe package('ganeti-instance-image') do

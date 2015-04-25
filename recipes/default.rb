@@ -27,6 +27,15 @@ when 'rhel'
     gpgcheck false
     action :add
   end
+when 'ubuntu'
+  include_recipe 'apt'
+  apt_repository 'instance-image' do
+    uri 'http://ftp.osuosl.org/pub/osl/ganeti-instance-image/apt/'
+    distribution node['lsb']['codename']
+    arch 'amd64'
+    components ['main']
+    key 'http://ftp.osuosl.org/pub/osl/ganeti-instance-image/apt/repo.gpg'
+  end
 end
 
 package 'ganeti-instance-image'

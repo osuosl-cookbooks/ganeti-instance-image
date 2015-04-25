@@ -20,6 +20,13 @@ platforms:
     driver_config:
       username: centos
       image_ref: "CentOS 6.6"
+  - name: ubuntu-12.04
+    driver_plugin: openstack
+    driver_config:
+      username: ubuntu
+      image_ref: "Ubuntu 12.04"
+    run_list:
+      - recipe[apt::default]
 
 suites:
   - name: default
