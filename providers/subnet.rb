@@ -1,9 +1,5 @@
 use_inline_resources
 
-def whyrun_supported?
-  true
-end
-
 action :create do
   config_dir = node['ganeti-instance-image']['config_dir']
   directory "#{config_dir}/networks/subnets/" do
