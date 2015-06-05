@@ -2,11 +2,11 @@ use_inline_resources
 
 action :create do
   config_dir = node['ganeti-instance-image']['config_dir']
-  directory "#{config_dir}/networks/subnets/" do
+  directory ::File.join(config_dir, 'networks', 'subnets') do
     recursive true
     action :create
   end
-  template "#{config_dir}/networks/subnets/#{new_resource.name}" do
+  template ::File.join(config_dir, 'networks', 'subnets', new_resource.name) do
     cookbook 'ganeti-instance-image'
     source 'subnets.sh.erb'
     variables(
@@ -18,7 +18,7 @@ end
 
 action :delete do
   config_dir = node['ganeti-instance-image']['config_dir']
-  file "#{config_dir}/networks/subnets/#{new_resource.name}" do
+  file ::File.join(config_dir, 'networks', 'subnets', new_resource.name) do
     action :delete
   end
 end

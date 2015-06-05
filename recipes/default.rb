@@ -49,7 +49,7 @@ template '/etc/default/ganeti-instance-image' do
   action :create
 end
 
-template File.join(config_dir, 'variants.list') do
+template ::File.join(config_dir, 'variants.list') do
   source 'variants.list.erb'
   variables(variants: node['ganeti-instance-image']['variants_list'])
   action :create

@@ -6,11 +6,12 @@ end
 
 action :create do
   config_dir = node['ganeti-instance-image']['config_dir']
-  directory "#{config_dir}/networks/instances/" do
+  directory ::File.join(config_dir, 'networks', 'instances') do
     recursive true
     action :create
   end
-  template "#{config_dir}/networks/instances/#{new_resource.name}" do
+  template ::File.join(config_dir, 'networks', 'instances', new_resource.name) \
+    do
     cookbook 'ganeti-instance-image'
     source 'instances.sh.erb'
     variables(
@@ -22,7 +23,7 @@ end
 
 action :delete do
   config_dir = node['ganeti-instance-image']['config_dir']
-  file "#{config_dir}/networks/instances/#{new_resource.name}" do
+  file ::File.join(config_dir, 'networks', 'instances', new_resource.name) do
     action :delete
   end
 end
