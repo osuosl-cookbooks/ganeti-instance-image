@@ -31,8 +31,6 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[ganeti::_test]
-      - recipe[ganeti-instance-image]
       - recipe[test-instance-image]
     attributes:
       ganeti-instance-image:
