@@ -1,0 +1,24 @@
+use_inline_resources
+
+action :create do
+  config_dir = node['ganeti-instance-image']['config_dir']
+  directory ::File.join(config_dir, 'networks', 'subnets') do
+    recursive true
+    action :create
+  end
+  template ::File.join(config_dir, 'networks', 'subnets', new_resource.name) do
+    cookbook 'ganeti-instance-image'
+    source 'subnets.sh.erb'
+    variables(
+      netmask: new_resource.netmask,
+      gateway: new_resource.gateway
+    )
+  end
+end
+
+action :delete do
+  config_dir = node['ganeti-instance-image']['config_dir']
+  file ::File.join(config_dir, 'networks', 'subnets', new_resource.name) do
+    action :delete
+  end
+end

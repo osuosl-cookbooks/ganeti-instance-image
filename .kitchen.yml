@@ -6,10 +6,26 @@ provisioner:
   name: chef_solo
 
 platforms:
+  - name: centos-6.6
   - name: ubuntu-12.04
-  - name: centos-6.4
 
 suites:
-  - name: default
     run_list:
+      - recipe[test-instance-image]
     attributes:
+      ganeti-instance-image:
+        variants_list:
+          - default
+          - centos-6
+      ganeti:
+        master-node: true
+        cluster:
+          disk-templates:
+            - "diskless"
+          master-netdev: "lo"
+          enabled-hypervisors:
+            - "fake"
+          nic:
+            mode: "routed"
+            link: "100"
+          name: "ganeti.local"
